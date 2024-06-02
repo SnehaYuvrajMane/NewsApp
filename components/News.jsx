@@ -16,7 +16,6 @@ const News = () => {
     }&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`;
 
     const cache = localStorage.getItem("cache");
-    console.log(cache[url]);
     if (cache && cache[url]) {
       setNews(cache[url]);
       return;
@@ -26,7 +25,6 @@ const News = () => {
       abortController.abort();
     }
     abortController = new AbortController();
-    console.log(url);
     axios
       .get(url, {
         signal: abortController.signal,
@@ -35,7 +33,7 @@ const News = () => {
         const data = {
           url: res.data.articles,
         };
-        console.log(data);
+
         localStorage.setItem("cache", data);
         if (extend) {
           setNews([...news, ...res.data.articles]);
